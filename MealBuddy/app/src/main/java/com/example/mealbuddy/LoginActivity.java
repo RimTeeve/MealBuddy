@@ -10,9 +10,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import org.w3c.dom.Text;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -78,10 +81,12 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        Button create_button = (Button) findViewById(R.id.create_account_button);
-        create_button.setOnClickListener(new View.OnClickListener() {
+        TextView createUserText = (TextView) findViewById(R.id.create_acct_text);
+        createUserText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i(TAG, "Create user text clicked");
+
                 DialogFragment createAccountDialog = new CreateAccountDialogFragment();
                 createAccountDialog.show(getFragmentManager(), "createAccount");
             }

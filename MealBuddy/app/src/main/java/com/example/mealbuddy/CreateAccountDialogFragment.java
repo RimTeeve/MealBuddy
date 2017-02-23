@@ -26,7 +26,7 @@ public class CreateAccountDialogFragment extends DialogFragment {
 
         builder.setTitle(R.string.create_account)
                 .setView(inflater.inflate(R.layout.create_user, null))
-                .setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.create_account, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         Log.i(TAG, "Confirm Create");

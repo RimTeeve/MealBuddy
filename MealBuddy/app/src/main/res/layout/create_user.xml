@@ -17,4 +17,12 @@
         android:hint="@string/login_password_hint"
         android:inputType="textPassword"
         android:fontFamily="sans-serif" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/confirm_password_edit"
+        android:hint="@string/confirm"
+        android:inputType="textPassword"
+        android:fontFamily="sans-serif" />
 </LinearLayout>

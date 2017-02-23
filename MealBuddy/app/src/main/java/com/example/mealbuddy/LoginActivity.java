@@ -1,5 +1,6 @@
 package com.example.mealbuddy;
 
+import android.app.DialogFragment;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -74,6 +75,15 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Login button clicked");
+            }
+        });
+
+        Button create_button = (Button) findViewById(R.id.create_account_button);
+        create_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogFragment createAccountDialog = new CreateAccountDialogFragment();
+                createAccountDialog.show(getFragmentManager(), "createAccount");
             }
         });
     }

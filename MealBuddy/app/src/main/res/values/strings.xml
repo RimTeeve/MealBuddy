@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">MealBuddy</string>
     <string name="login_username_hint">Username</string>
+    <string name="create_account">Create Account</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
     <string name="login_password_hint">Password</string>
     <string name="login_button_text">Login</string>
 </resources>

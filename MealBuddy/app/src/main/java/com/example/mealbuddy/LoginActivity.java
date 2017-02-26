@@ -1,6 +1,7 @@
 package com.example.mealbuddy;
 
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,13 +12,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import org.w3c.dom.Text;
-
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity
+        implements CreateAccountDialogFragment.DialogFragmentListener {
 
     private final String TAG = "LoginActivity";
 
@@ -42,6 +46,8 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     // User is signed in
                     Log.i(TAG, "User is signed in:" + user.getUid());
+
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 }
             }
         };
@@ -78,6 +84,21 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.i(TAG, "Login button clicked");
+                mAuth.signInWithEmailAndPassword(
+                        username_text.getText().toString(),
+                        password_text.getText().toString())
+                    .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            Log.d(TAG, "signInWithEmail:onComplete" + task.isSuccessful());
+
+                            if (!task.isSuccessful()) {
+                                Log.w(TAG, "signInWithEmail:failed", task.getException());
+                                Toast.makeText(LoginActivity.this, "Sign In Failed",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
             }
         });
 
@@ -104,6 +125,40 @@ public class LoginActivity extends AppCompatActivity {
         super.onStop();
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+        Log.i(TAG, "onDialogNegativeClick");
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        Log.i(TAG, "onDialogPositiveClick");
+
+        if (dialog instanceof CreateAccountDialogFragment) {
+            CreateAccountDialogFragment d = (CreateAccountDialogFragment) dialog;
+            String userEmail = d.getUserEmail();
+            String password = d.getPassword();
+            Log.d(TAG, "New - username: " + d.getUserEmail()
+                    + " password: " + d.getPassword());
+
+            if (userEmail != null && !userEmail.isEmpty() &&
+                    password != null && !password.isEmpty()) {
+                mAuth.createUserWithEmailAndPassword(userEmail, password)
+                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
+
+                                if (!task.isSuccessful()) {
+                                    Toast.makeText(LoginActivity.this, "Failed to Create Account",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+            }
         }
     }
 }

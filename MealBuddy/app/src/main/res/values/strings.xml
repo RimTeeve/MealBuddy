@@ -8,4 +8,5 @@
     <string name="login_button_text">Login</string>
     <string name="drawer_open">Opened drawer</string>
     <string name="drawer_close">Closed drawer</string>
+    <string name="logout">Logout</string>
 </resources>

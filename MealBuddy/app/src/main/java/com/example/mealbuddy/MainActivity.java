@@ -2,11 +2,12 @@ package com.example.mealbuddy;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -17,9 +18,6 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String[] mDrawerItemLabels;
-    private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
 
     @Override
@@ -32,9 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(app_toolbar);
 
         // Setup nav drawer
-        mDrawerItemLabels = new String[] { "Item 1", "Item 2", "Item 3" };
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.nav_drawer);
+        DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerToggle = new ActionBarDrawerToggle(
                 this,
                 mDrawerLayout,
@@ -55,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        mDrawerList.setAdapter(new ArrayAdapter<>(this, R.layout.nav_drawer_item,
-                mDrawerItemLabels));
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_drawer);
+//        navigationView.setNavigationItemSelectedListener(this);
 
         Button logout = (Button) findViewById(R.id.logout_button);
         logout.setOnClickListener(new View.OnClickListener() {

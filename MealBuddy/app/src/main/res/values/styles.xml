@@ -11,6 +11,11 @@
     <style name="MealBuddyTheme" parent="AppTheme">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowActionBar">false</item>
+        <item name="android:windowTranslucentStatus">true</item>
     </style>
+
+    <style name="MealBuddyTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="MealBuddyTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>
